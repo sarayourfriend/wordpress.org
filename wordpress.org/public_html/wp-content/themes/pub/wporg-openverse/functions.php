@@ -2,6 +2,8 @@
 
 namespace WordPressdotorg\Openverse\Theme;
 
+use function WordPressdotorg\Locales\get_locales;
+
 /**
  * This is the URL on which the frontend site of Openverse is hosted. Unless
  * overridden from the Customizer UI, this is the URL for the embedded `iframe`.
@@ -83,11 +85,15 @@ function enqueue_assets() {
 		/* ver       */ filemtime( __DIR__ . '/js/message.js' ),
 		/* in_footer */ true
 	);
+
+	$locale = get_locales()[ "pt_BR" ];
+	$locale_slug = $locale->slug;
+
 	wp_add_inline_script(
 		/* handle   */ 'openverse-message',
 		/* JS       */ 'const openverseUrl = ' . wp_json_encode( get_theme_mod( 'ov_src_url', OPENVERSE_URL ) ) . ";\n" .
 		/* JS       */ 'const openverseSubpath = ' . wp_json_encode( OPENVERSE_SUBPATH ) . ";\n" .
-		/* JS       */ 'const currentLocale = ' . wp_json_encode( get_locale() ) . ";\n",
+		/* JS       */ 'const localeSlug = ' . wp_json_encode( $locale_slug ) . ";\n",
 		/* position */ 'before'
 	);	
 

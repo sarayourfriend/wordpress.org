@@ -11,7 +11,7 @@
  */
 function updatePath(value) {
   const path = value.path;
-  const url = `${openverseSubpath}${path}`; // openverseSubpath defined in `index.php`
+  const url = `${openverseSubpath}${path}`.replace(`/${localeSlug}`, ''); // openverseSubpath defined in `index.php`
 
   console.log(`Replacing state URL: ${url}`);
   history.replaceState(
